@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.disabled = true;
 
             const formData = new FormData(form);
+            formData.append('form-name', form.getAttribute('name'));
             
             fetch('/', {
                 method: 'POST',

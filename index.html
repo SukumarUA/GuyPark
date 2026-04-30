@@ -238,7 +238,8 @@
                     
                     <div class="contact-form">
                         <h3>Prescription Refill / Contact Form</h3>
-                        <form id="contactForm" name="contact" data-netlify="true">
+                        <form id="contactForm" name="contact" netlify data-netlify="true">
+                            <input type="hidden" name="form-name" value="contact" />
                             <div class="form-group">
                                 <label for="name">Full Name</label>
                                 <input type="text" id="name" name="name" class="form-control" required placeholder="John Doe">

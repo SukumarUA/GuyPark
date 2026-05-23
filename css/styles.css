@@ -506,7 +506,7 @@ section { padding: 96px 0; }
   font-size: .7em;
   color: var(--red-600);
   font-weight: 700;
-  margin-left: 2px;
+  margin-left: 6px;
 }
 .trust-strip .stat .label {
   color: var(--ink-500); font-size: .82rem; font-weight: 500;
@@ -1378,7 +1378,23 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 }
 
 @media (max-width: 720px) {
-  .topbar { display: none; }
+  .topbar {
+    display: block;
+    padding: 8px 0;
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+  .topbar .container {
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .topbar .container > div {
+    display: flex;
+    justify-content: center;
+  }
   .menu-toggle { display: inline-flex; }
   .nav {
     position: fixed;

@@ -1,94 +1,118 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = mobileMenuBtn.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
+(function () {
+  'use strict';
 
-        // Close menu when clicking a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            });
+  document.addEventListener('DOMContentLoaded', function () {
+    // ----- Mobile menu -----
+    var toggle = document.querySelector('.menu-toggle');
+    var nav    = document.querySelector('.nav');
+
+    if (toggle && nav) {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.addEventListener('click', function () {
+        var open = nav.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        var icon = toggle.querySelector('i');
+        if (icon) {
+          icon.classList.toggle('fa-bars', !open);
+          icon.classList.toggle('fa-times', open);
+        }
+      });
+
+      nav.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          nav.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          var icon = toggle.querySelector('i');
+          if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
         });
+      });
     }
 
-    // Smooth Scrolling for Anchor Links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                // Offset for fixed header
-                const headerHeight = document.querySelector('header').offsetHeight;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
-  
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
+    // ----- Auto-highlight active nav link based on current page filename -----
+    var path = location.pathname.toLowerCase();
+    var current = path.split('/').pop() || 'index.html';
+    if (current === '') current = 'index.html';
+
+    var baseCurrent = current.replace(/\.html$/, '');
+    if (baseCurrent === 'index' || baseCurrent === '') baseCurrent = 'index';
+
+    document.querySelectorAll('.nav a[href]:not(.nav-cta)').forEach(function (link) {
+      var href = link.getAttribute('href').toLowerCase();
+      var baseHref = href.split('/').pop().replace(/\.html$/, '').split('#')[0];
+      if (baseHref === baseCurrent) {
+        link.classList.add('is-active');
+      }
     });
 
-    // Form Submission Handling (Netlify AJAX)
-    const forms = document.querySelectorAll('form[data-netlify="true"]');
-    forms.forEach(form => {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = form.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            btn.disabled = true;
-
-            const formData = new FormData(form);
-            formData.append('form-name', form.getAttribute('name'));
-            
-            fetch('/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString()
-            })
-            .then(() => {
-                btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-                btn.classList.remove('btn-primary');
-                btn.classList.add('btn-secondary');
-                form.reset();
-            })
-            .catch((error) => {
-                console.error('Error submitting form:', error);
-                btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error Sending';
-                btn.classList.remove('btn-primary');
-                btn.style.backgroundColor = '#e74c3c';
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.classList.remove('btn-secondary');
-                    btn.classList.add('btn-primary');
-                    btn.style.backgroundColor = '';
-                    btn.disabled = false;
-                }, 3000);
-            });
-        });
+    // ----- Smooth scroll for in-page anchors, accounting for sticky header -----
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var targetId = this.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+        var target = document.querySelector(targetId);
+        if (!target) return;
+        e.preventDefault();
+        var header = document.querySelector('.site-header');
+        var subnav = document.querySelector('.subnav');
+        var offset = (header ? header.offsetHeight : 0) + (subnav ? subnav.offsetHeight : 0);
+        var top = target.getBoundingClientRect().top + window.pageYOffset - offset - 12;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
     });
-});
+
+    // ----- Reveal-on-scroll for sections, cards, and headers -----
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      var revealTargets = document.querySelectorAll('.section-header, .service-card, .review-card, .hero-card, .stat, .resource-card, .service-block, .value-card, .pharmacist-card, .info-card, .form-card');
+      revealTargets.forEach(function (el) { el.classList.add('reveal'); });
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+
+      revealTargets.forEach(function (el) { io.observe(el); });
+    }
+
+    // ----- Contact form submission (Netlify, general inquiries only — no PHI) -----
+    document.querySelectorAll('form[data-netlify="true"]').forEach(function (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        if (!btn) return;
+        var originalLabel = btn.innerHTML;
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
+
+        var formData = new FormData(form);
+        formData.append('form-name', form.getAttribute('name') || 'contact');
+
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
+        })
+          .then(function () {
+            btn.innerHTML = '<i class="fas fa-check"></i> Message sent';
+            form.reset();
+          })
+          .catch(function () {
+            btn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Error - please call us';
+            btn.style.background = 'var(--red-600)';
+          })
+          .finally(function () {
+            setTimeout(function () {
+              btn.innerHTML = originalLabel;
+              btn.disabled = false;
+              btn.style.background = '';
+            }, 4000);
+          });
+      });
+    });
+  });
+})();

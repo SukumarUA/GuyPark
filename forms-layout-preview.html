@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forms Layout Preview — Guy Park Pharmacy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  body { background: var(--canvas); padding: 24px 16px 80px; }
+  .preview-wrap { max-width: 1100px; margin: 0 auto; }
+  .preview-head { background: linear-gradient(135deg, var(--blue-800), var(--blue-900)); color: #fff; padding: 32px; border-radius: 18px; margin-bottom: 36px; }
+  .preview-head h1 { color: #fff; font-family: 'Newsreader', serif; font-size: 2rem; margin-bottom: 8px; }
+  .preview-head p { color: #dde3f6; max-width: 720px; }
+  .preview-section { background: #fff; border-radius: 18px; padding: 32px; margin-bottom: 36px; border: 1px solid var(--line); box-shadow: 0 2px 6px rgba(11,17,48,.04); }
+  .preview-section > .head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .preview-section > .head h2 { font-family: 'Newsreader', serif; font-size: 1.5rem; color: var(--blue-800); margin: 0; }
+  .preview-section > .head .num { background: var(--red-100); color: var(--red-700); font-weight: 800; font-size: .8rem; padding: 4px 12px; border-radius: 999px; letter-spacing: .08em; }
+  .preview-section > .head .lede { flex-basis: 100%; color: var(--ink-500); font-size: .95rem; margin: 0; }
+
+  /* ============ TABS ============ */
+  .tab-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; border-bottom: 2px solid var(--line); padding-bottom: 4px; }
+  .tab-btn { background: transparent; border: none; cursor: pointer; padding: 10px 14px; font-family: inherit; font-size: .88rem; font-weight: 600; color: var(--ink-500); border-radius: 8px 8px 0 0; display: inline-flex; align-items: center; gap: 8px; transition: all .15s ease; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .tab-btn:hover { color: var(--blue-800); background: var(--blue-100); }
+  .tab-btn.active { color: var(--blue-800); border-bottom-color: var(--red-600); }
+  .tab-num { background: var(--blue-100); color: var(--blue-800); padding: 2px 6px; border-radius: 6px; font-size: .7rem; font-weight: 800; letter-spacing: .05em; }
+  .tab-btn.active .tab-num { background: var(--blue-800); color: #fff; }
+  .tab-count { background: var(--line); color: var(--ink-500); padding: 1px 7px; border-radius: 999px; font-size: .68rem; font-weight: 700; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ============ ACCORDION ============ */
+  .acc-list { display: flex; flex-direction: column; gap: 8px; }
+  .acc-item { border: 1px solid var(--line); border-radius: 12px; background: #fff; overflow: hidden; }
+  .acc-item[open] { border-color: var(--blue-800); }
+  .acc-item > summary { list-style: none; cursor: pointer; padding: 16px 20px; display: flex; align-items: center; gap: 14px; font-weight: 600; color: var(--blue-800); }
+  .acc-item > summary::-webkit-details-marker { display: none; }
+  .acc-num { background: var(--red-100); color: var(--red-700); padding: 4px 10px; border-radius: 999px; font-size: .75rem; font-weight: 800; letter-spacing: .08em; }
+  .acc-name { flex: 1; font-family: 'Newsreader', serif; font-size: 1.1rem; }
+  .acc-count { color: var(--ink-500); font-size: .82rem; font-weight: 500; }
+  .acc-chevron { color: var(--ink-300); transition: transform .2s ease; }
+  .acc-item[open] .acc-chevron { transform: rotate(180deg); color: var(--blue-800); }
+  .acc-body { padding: 0 20px 20px; }
+
+  /* ============ SEARCH + FILTER ============ */
+  .search-row { display: flex; gap: 12px; margin-bottom: 16px; }
+  .search-input { flex: 1; padding: 12px 16px; border: 1px solid var(--line); border-radius: 12px; font-family: inherit; font-size: 1rem; background: #fff; }
+  .search-input:focus { outline: none; border-color: var(--blue-800); box-shadow: 0 0 0 3px rgba(29,63,175,.15); }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .chip { background: #fff; border: 1px solid var(--line); padding: 7px 13px; border-radius: 999px; cursor: pointer; font-family: inherit; font-size: .82rem; font-weight: 600; color: var(--ink-700); display: inline-flex; align-items: center; gap: 6px; transition: all .15s ease; }
+  .chip:hover { border-color: var(--blue-800); color: var(--blue-800); }
+  .chip.active { background: var(--blue-800); color: #fff; border-color: var(--blue-800); }
+  .chip-count { background: rgba(0,0,0,.08); padding: 1px 7px; border-radius: 999px; font-size: .68rem; font-weight: 700; }
+  .chip.active .chip-count { background: rgba(255,255,255,.2); }
+  .search-spec { color: var(--ink-300); }
+  .search-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+  .search-list .form-card.hidden { display: none; }
+
+  .pick-note { background: var(--blue-100); color: var(--blue-800); padding: 14px 18px; border-radius: 12px; margin-top: 16px; font-weight: 500; }
+  .pick-note strong { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="preview-wrap">
+
+  <div class="preview-head">
+    <h1>Forms layout preview</h1>
+    <p>Three alternative layouts for the 28-form referral library, using your real data. Scroll through, pick the one you want, and tell me the number — I'll apply it to <code>resources.html</code>.</p>
+  </div>
+
+  <!-- ========================================= OPTION 1: TABS ========================================= -->
+  <div class="preview-section">
+    <div class="head">
+      <h2>Option 1 — Tabs</h2>
+      <span class="num">01</span>
+      <p class="lede">One specialty visible at a time. Click a tab to switch. Single-screen, no scrolling. Best for office staff who already know which specialty they need.</p>
+    </div>
+
+    <div class="tab-bar" role="tablist">
+      <button type="button" class="tab-btn active" data-tab="cardiology"><span class="tab-num">01</span> Cardiology & Pulmonology <span class="tab-count">2</span></button><button type="button" class="tab-btn" data-tab="dermatology"><span class="tab-num">02</span> Dermatology <span class="tab-count">2</span></button><button type="button" class="tab-btn" data-tab="endocrinology"><span class="tab-num">03</span> Endocrinology <span class="tab-count">5</span></button><button type="button" class="tab-btn" data-tab="gastroenterology"><span class="tab-num">04</span> Gastroenterology <span class="tab-count">2</span></button><button type="button" class="tab-btn" data-tab="hepatology"><span class="tab-num">05</span> Hepatology <span class="tab-count">1</span></button><button type="button" class="tab-btn" data-tab="immune"><span class="tab-num">06</span> Immune Deficiencies <span class="tab-count">5</span></button><button type="button" class="tab-btn" data-tab="neurology"><span class="tab-num">07</span> Neurology & Behavioral Health <span class="tab-count">5</span></button><button type="button" class="tab-btn" data-tab="oncology"><span class="tab-num">08</span> Oncology & Hematology <span class="tab-count">3</span></button><button type="button" class="tab-btn" data-tab="rheumatology"><span class="tab-num">09</span> Rheumatology <span class="tab-count">4</span></button>
+    </div>
+
+    <div class="tab-panel active" id="tab-cardiology" role="tabpanel">
+      <div class="form-grid">
+        <a href="Forms%20for%20GUY%20PARK/01%20-%20Cardiology%20%26%20Pulmonology/Cystic%20Fibrosis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Cystic Fibrosis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Cystic Fibrosis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/01%20-%20Cardiology%20%26%20Pulmonology/Repatha%20%26%20Praluent%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Repatha & Praluent Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Repatha & Praluent Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+      </div>
+    </div><div class="tab-panel" id="tab-dermatology" role="tabpanel">
+      <div class="form-grid">
+        <a href="Forms%20for%20GUY%20PARK/02%20-%20Dermatology/Dermatology%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Dermatology Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Dermatology Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/02%20-%20Dermatology/Cosentyx%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Cosentyx Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Cosentyx Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+      </div>
+    </div><div class="tab-panel" id="tab-endocrinology" role="tabpanel">
+      <div class="form-grid">
+        <a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Endocrinology%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Endocrinology Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Endocrinology Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Saxenda%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Saxenda Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Saxenda Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Lupron%20Depot%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Lupron Depot Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Lupron Depot Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Osteoporosis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Osteoporosis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Osteoporosis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="tel:+15182126020" class="form-card form-card--call" aria-label="Call to request Diabetic Footwear Order Form">
+  <i class="fas fa-phone-volume" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Diabetic Footwear Order Form</strong>
+    <span class="action"><i class="fas fa-phone" aria-hidden="true"></i> Call to request</span>
+  </span>
+</a>
+      </div>
+    </div><div class="tab-panel" id="tab-gastroenterology" role="tabpanel">
+      <div class="form-grid">
+        <a href="Forms%20for%20GUY%20PARK/04%20-%20Gastroenterology/Crohns%20Disease%20%26%20Ulcerative%20Colitis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Crohn's Disease & Ulcerative Colitis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Crohn's Disease & Ulcerative Colitis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/04%20-%20Gastroenterology/Xifaxan%20%26%20Viberzi%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Xifaxan & Viberzi Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Xifaxan & Viberzi Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+      </div>
+    </div><div class="tab-panel" id="tab-hepatology" role="tabpanel">
+      <div class="form-grid">
+        <a href="Forms%20for%20GUY%20PARK/05%20-%20Hepatology/Hepatitis%20C%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Hepatitis C Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Hepatitis C Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+      </div>
+    </div><div class="tab-panel" id="tab-immune" role="tabpanel">
+      <div class="form-grid">
+        <a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/IVIG%20Prescription%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download IVIG Prescription Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>IVIG Prescription Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/Firazyr%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Firazyr Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Firazyr Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/HIV-AIDS%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download HIV-AIDS Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>HIV-AIDS Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/Sivextro%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Sivextro Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Sivextro Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/Transplant%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Transplant Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Transplant Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+      </div>
+    </div><div class="tab-panel" id="tab-neurology" role="tabpanel">
+      <div class="form-grid">
+        <a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Multiple%20Sclerosis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Multiple Sclerosis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Multiple Sclerosis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Migraine%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Migraine Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Migraine Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Tetrabenazine%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Tetrabenazine Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Tetrabenazine Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Spravato%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Spravato Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Spravato Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Vivitrol%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Vivitrol Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Vivitrol Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+      </div>
+    </div><div class="tab-panel" id="tab-oncology" role="tabpanel">
+      <div class="form-grid">
+        <a href="Forms%20for%20GUY%20PARK/08%20-%20Oncology%20%26%20Hematology/Oncology%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Oncology Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Oncology Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/08%20-%20Oncology%20%26%20Hematology/Anemia%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Anemia Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Anemia Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/08%20-%20Oncology%20%26%20Hematology/Low%20Molecular%20Weight%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Low Molecular Weight Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Low Molecular Weight Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+      </div>
+    </div><div class="tab-panel" id="tab-rheumatology" role="tabpanel">
+      <div class="form-grid">
+        <a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/RA%20%26%20Inflammation%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download RA & Inflammation Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>RA & Inflammation Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/Cosentyx%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Cosentyx Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Cosentyx Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/Krystexxa%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Krystexxa Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Krystexxa Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/Osteoarthritis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Osteoarthritis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Osteoarthritis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================= OPTION 2: ACCORDION ========================================= -->
+  <div class="preview-section">
+    <div class="head">
+      <h2>Option 2 — Accordion</h2>
+      <span class="num">02</span>
+      <p class="lede">All 9 specialties visible at a glance; click any header to expand and see its forms. Best when users want to browse or compare across specialties.</p>
+    </div>
+
+    <div class="acc-list">
+      <details class="acc-item">
+  <summary>
+    <span class="acc-num">01</span>
+    <span class="acc-name">Cardiology & Pulmonology</span>
+    <span class="acc-count">2 forms</span>
+    <i class="fas fa-chevron-down acc-chevron" aria-hidden="true"></i>
+  </summary>
+  <div class="acc-body">
+    <div class="form-grid">
+      <a href="Forms%20for%20GUY%20PARK/01%20-%20Cardiology%20%26%20Pulmonology/Cystic%20Fibrosis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Cystic Fibrosis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Cystic Fibrosis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/01%20-%20Cardiology%20%26%20Pulmonology/Repatha%20%26%20Praluent%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Repatha & Praluent Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Repatha & Praluent Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+    </div>
+  </div>
+</details><details class="acc-item">
+  <summary>
+    <span class="acc-num">02</span>
+    <span class="acc-name">Dermatology</span>
+    <span class="acc-count">2 forms</span>
+    <i class="fas fa-chevron-down acc-chevron" aria-hidden="true"></i>
+  </summary>
+  <div class="acc-body">
+    <div class="form-grid">
+      <a href="Forms%20for%20GUY%20PARK/02%20-%20Dermatology/Dermatology%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Dermatology Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Dermatology Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/02%20-%20Dermatology/Cosentyx%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Cosentyx Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Cosentyx Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+    </div>
+  </div>
+</details><details class="acc-item">
+  <summary>
+    <span class="acc-num">03</span>
+    <span class="acc-name">Endocrinology</span>
+    <span class="acc-count">5 forms</span>
+    <i class="fas fa-chevron-down acc-chevron" aria-hidden="true"></i>
+  </summary>
+  <div class="acc-body">
+    <div class="form-grid">
+      <a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Endocrinology%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Endocrinology Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Endocrinology Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Saxenda%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Saxenda Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Saxenda Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Lupron%20Depot%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Lupron Depot Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Lupron Depot Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Osteoporosis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Osteoporosis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Osteoporosis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="tel:+15182126020" class="form-card form-card--call" aria-label="Call to request Diabetic Footwear Order Form">
+  <i class="fas fa-phone-volume" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Diabetic Footwear Order Form</strong>
+    <span class="action"><i class="fas fa-phone" aria-hidden="true"></i> Call to request</span>
+  </span>
+</a>
+    </div>
+  </div>
+</details><details class="acc-item">
+  <summary>
+    <span class="acc-num">04</span>
+    <span class="acc-name">Gastroenterology</span>
+    <span class="acc-count">2 forms</span>
+    <i class="fas fa-chevron-down acc-chevron" aria-hidden="true"></i>
+  </summary>
+  <div class="acc-body">
+    <div class="form-grid">
+      <a href="Forms%20for%20GUY%20PARK/04%20-%20Gastroenterology/Crohns%20Disease%20%26%20Ulcerative%20Colitis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Crohn's Disease & Ulcerative Colitis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Crohn's Disease & Ulcerative Colitis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/04%20-%20Gastroenterology/Xifaxan%20%26%20Viberzi%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Xifaxan & Viberzi Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Xifaxan & Viberzi Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+    </div>
+  </div>
+</details><details class="acc-item">
+  <summary>
+    <span class="acc-num">05</span>
+    <span class="acc-name">Hepatology</span>
+    <span class="acc-count">1 form</span>
+    <i class="fas fa-chevron-down acc-chevron" aria-hidden="true"></i>
+  </summary>
+  <div class="acc-body">
+    <div class="form-grid">
+      <a href="Forms%20for%20GUY%20PARK/05%20-%20Hepatology/Hepatitis%20C%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Hepatitis C Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Hepatitis C Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+    </div>
+  </div>
+</details><details class="acc-item">
+  <summary>
+    <span class="acc-num">06</span>
+    <span class="acc-name">Immune Deficiencies</span>
+    <span class="acc-count">5 forms</span>
+    <i class="fas fa-chevron-down acc-chevron" aria-hidden="true"></i>
+  </summary>
+  <div class="acc-body">
+    <div class="form-grid">
+      <a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/IVIG%20Prescription%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download IVIG Prescription Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>IVIG Prescription Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/Firazyr%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Firazyr Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Firazyr Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/HIV-AIDS%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download HIV-AIDS Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>HIV-AIDS Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/Sivextro%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Sivextro Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Sivextro Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/Transplant%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Transplant Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Transplant Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+    </div>
+  </div>
+</details><details class="acc-item">
+  <summary>
+    <span class="acc-num">07</span>
+    <span class="acc-name">Neurology & Behavioral Health</span>
+    <span class="acc-count">5 forms</span>
+    <i class="fas fa-chevron-down acc-chevron" aria-hidden="true"></i>
+  </summary>
+  <div class="acc-body">
+    <div class="form-grid">
+      <a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Multiple%20Sclerosis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Multiple Sclerosis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Multiple Sclerosis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Migraine%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Migraine Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Migraine Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Tetrabenazine%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Tetrabenazine Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Tetrabenazine Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Spravato%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Spravato Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Spravato Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Vivitrol%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Vivitrol Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Vivitrol Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+    </div>
+  </div>
+</details><details class="acc-item">
+  <summary>
+    <span class="acc-num">08</span>
+    <span class="acc-name">Oncology & Hematology</span>
+    <span class="acc-count">3 forms</span>
+    <i class="fas fa-chevron-down acc-chevron" aria-hidden="true"></i>
+  </summary>
+  <div class="acc-body">
+    <div class="form-grid">
+      <a href="Forms%20for%20GUY%20PARK/08%20-%20Oncology%20%26%20Hematology/Oncology%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Oncology Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Oncology Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/08%20-%20Oncology%20%26%20Hematology/Anemia%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Anemia Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Anemia Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/08%20-%20Oncology%20%26%20Hematology/Low%20Molecular%20Weight%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Low Molecular Weight Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Low Molecular Weight Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+    </div>
+  </div>
+</details><details class="acc-item">
+  <summary>
+    <span class="acc-num">09</span>
+    <span class="acc-name">Rheumatology</span>
+    <span class="acc-count">4 forms</span>
+    <i class="fas fa-chevron-down acc-chevron" aria-hidden="true"></i>
+  </summary>
+  <div class="acc-body">
+    <div class="form-grid">
+      <a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/RA%20%26%20Inflammation%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download RA & Inflammation Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>RA & Inflammation Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/Cosentyx%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Cosentyx Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Cosentyx Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/Krystexxa%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Krystexxa Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Krystexxa Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+<a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/Osteoarthritis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" aria-label="Download Osteoarthritis Referral Form (PDF)">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Osteoarthritis Referral Form</strong>
+    <span class="action"><i class="fas fa-download" aria-hidden="true"></i> Download PDF</span>
+  </span>
+</a>
+    </div>
+  </div>
+</details>
+    </div>
+  </div>
+
+  <!-- ========================================= OPTION 3: SEARCH + FILTER ========================================= -->
+  <div class="preview-section">
+    <div class="head">
+      <h2>Option 3 — Search &amp; filter</h2>
+      <span class="num">03</span>
+      <p class="lede">All 28 forms in one searchable list. Type any drug or specialty name to filter instantly, or click a chip to narrow by area. Fastest if users know the drug name (e.g. typing "cosentyx" lands them in 2 seconds).</p>
+    </div>
+
+    <div class="search-row">
+      <input type="search" class="search-input" id="searchInput" placeholder="Search by form name or drug (try 'cosentyx', 'cystic', 'oncology'…)">
+    </div>
+    <div class="chip-row" id="chipRow">
+      <button type="button" class="chip active" data-filter="all">All <span class="chip-count">29</span></button><button type="button" class="chip" data-filter="cardiology">Cardiology & Pulmonology <span class="chip-count">2</span></button><button type="button" class="chip" data-filter="dermatology">Dermatology <span class="chip-count">2</span></button><button type="button" class="chip" data-filter="endocrinology">Endocrinology <span class="chip-count">5</span></button><button type="button" class="chip" data-filter="gastroenterology">Gastroenterology <span class="chip-count">2</span></button><button type="button" class="chip" data-filter="hepatology">Hepatology <span class="chip-count">1</span></button><button type="button" class="chip" data-filter="immune">Immune Deficiencies <span class="chip-count">5</span></button><button type="button" class="chip" data-filter="neurology">Neurology & Behavioral Health <span class="chip-count">5</span></button><button type="button" class="chip" data-filter="oncology">Oncology & Hematology <span class="chip-count">3</span></button><button type="button" class="chip" data-filter="rheumatology">Rheumatology <span class="chip-count">4</span></button>
+    </div>
+
+    <div class="search-list" id="searchList">
+      <a href="Forms%20for%20GUY%20PARK/01%20-%20Cardiology%20%26%20Pulmonology/Cystic%20Fibrosis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="cardiology" data-name="cystic fibrosis referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Cystic Fibrosis Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Cardiology & Pulmonology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/01%20-%20Cardiology%20%26%20Pulmonology/Repatha%20%26%20Praluent%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="cardiology" data-name="repatha & praluent referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Repatha & Praluent Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Cardiology & Pulmonology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/02%20-%20Dermatology/Dermatology%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="dermatology" data-name="dermatology referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Dermatology Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Dermatology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/02%20-%20Dermatology/Cosentyx%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="dermatology" data-name="cosentyx referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Cosentyx Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Dermatology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Endocrinology%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="endocrinology" data-name="endocrinology referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Endocrinology Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Endocrinology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Saxenda%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="endocrinology" data-name="saxenda referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Saxenda Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Endocrinology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Lupron%20Depot%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="endocrinology" data-name="lupron depot referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Lupron Depot Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Endocrinology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/03%20-%20Endocrinology/Osteoporosis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="endocrinology" data-name="osteoporosis referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Osteoporosis Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Endocrinology</span></span>
+  </span>
+</a><a href="tel:+15182126020" class="form-card form-card--call" data-spec="endocrinology" data-name="diabetic footwear order form">
+  <i class="fas fa-phone-volume" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Diabetic Footwear Order Form</strong>
+    <span class="action"><i class="fas fa-phone"></i> Call to request <span class="search-spec">Endocrinology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/04%20-%20Gastroenterology/Crohns%20Disease%20%26%20Ulcerative%20Colitis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="gastroenterology" data-name="crohn's disease & ulcerative colitis referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Crohn's Disease & Ulcerative Colitis Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Gastroenterology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/04%20-%20Gastroenterology/Xifaxan%20%26%20Viberzi%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="gastroenterology" data-name="xifaxan & viberzi referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Xifaxan & Viberzi Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Gastroenterology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/05%20-%20Hepatology/Hepatitis%20C%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="hepatology" data-name="hepatitis c referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Hepatitis C Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Hepatology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/IVIG%20Prescription%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="immune" data-name="ivig prescription referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>IVIG Prescription Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Immune Deficiencies</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/Firazyr%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="immune" data-name="firazyr referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Firazyr Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Immune Deficiencies</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/HIV-AIDS%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="immune" data-name="hiv-aids referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>HIV-AIDS Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Immune Deficiencies</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/Sivextro%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="immune" data-name="sivextro referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Sivextro Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Immune Deficiencies</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/06%20-%20Immune%20Deficiencies/Transplant%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="immune" data-name="transplant referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Transplant Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Immune Deficiencies</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Multiple%20Sclerosis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="neurology" data-name="multiple sclerosis referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Multiple Sclerosis Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Neurology & Behavioral Health</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Migraine%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="neurology" data-name="migraine referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Migraine Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Neurology & Behavioral Health</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Tetrabenazine%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="neurology" data-name="tetrabenazine referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Tetrabenazine Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Neurology & Behavioral Health</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Spravato%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="neurology" data-name="spravato referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Spravato Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Neurology & Behavioral Health</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/07%20-%20Neurology%20%26%20Behavioral%20Health/Vivitrol%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="neurology" data-name="vivitrol referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Vivitrol Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Neurology & Behavioral Health</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/08%20-%20Oncology%20%26%20Hematology/Oncology%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="oncology" data-name="oncology referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Oncology Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Oncology & Hematology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/08%20-%20Oncology%20%26%20Hematology/Anemia%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="oncology" data-name="anemia referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Anemia Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Oncology & Hematology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/08%20-%20Oncology%20%26%20Hematology/Low%20Molecular%20Weight%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="oncology" data-name="low molecular weight referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Low Molecular Weight Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Oncology & Hematology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/RA%20%26%20Inflammation%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="rheumatology" data-name="ra & inflammation referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>RA & Inflammation Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Rheumatology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/Cosentyx%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="rheumatology" data-name="cosentyx referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Cosentyx Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Rheumatology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/Krystexxa%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="rheumatology" data-name="krystexxa referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Krystexxa Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Rheumatology</span></span>
+  </span>
+</a><a href="Forms%20for%20GUY%20PARK/09%20-%20Rheumatology/Osteoarthritis%20Referral%20Form.pdf" class="form-card" target="_blank" rel="noopener" data-spec="rheumatology" data-name="osteoarthritis referral form">
+  <i class="fas fa-file-pdf" aria-hidden="true"></i>
+  <span class="meta">
+    <strong>Osteoarthritis Referral Form</strong>
+    <span class="action"><i class="fas fa-download"></i> Download PDF <span class="search-spec">Rheumatology</span></span>
+  </span>
+</a>
+    </div>
+  </div>
+
+  <div class="pick-note">
+    <strong>Recommendation:</strong> Option 3 (Search &amp; filter) is the most modern and fastest for power users — typing a drug name lands them on the right form in seconds. Option 1 (Tabs) is the cleanest visually. Option 2 (Accordion) is good if browsing matters more than searching. Tell me <em>1</em>, <em>2</em>, or <em>3</em> and I'll apply it.
+  </div>
+</div>
+
+<script>
+  // TABS
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // SEARCH + FILTER
+  const input = document.getElementById('searchInput');
+  const list = document.getElementById('searchList');
+  const chipRow = document.getElementById('chipRow');
+  let activeFilter = 'all';
+  function applyFilter() {
+    const q = input.value.trim().toLowerCase();
+    list.querySelectorAll('.form-card').forEach(card => {
+      const matchesQ = !q || card.dataset.name.includes(q);
+      const matchesF = activeFilter === 'all' || card.dataset.spec === activeFilter;
+      card.classList.toggle('hidden', !(matchesQ && matchesF));
+    });
+  }
+  input.addEventListener('input', applyFilter);
+  chipRow.querySelectorAll('.chip').forEach(c => {
+    c.addEventListener('click', () => {
+      chipRow.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+      activeFilter = c.dataset.filter;
+      applyFilter();
+    });
+  });
+</script>
+</body>
+</html>

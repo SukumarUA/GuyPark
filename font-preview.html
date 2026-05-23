@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Font Preview · Guy Park Pharmacy</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Load every candidate font once -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Lato:wght@400;700;900&family=Playfair+Display:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --blue-900: #15308c;
+      --blue-800: #1d3faf;
+      --blue-100: #e8ecfa;
+      --red-700:  #b81720;
+      --red-600:  #e51e26;
+      --red-100:  #fde8e9;
+      --ink-900: #0b1130;
+      --ink-700: #1a2150;
+      --ink-500: #4a5170;
+      --ink-300: #8a91a8;
+      --line: #e6e9f2;
+      --canvas: #fafbfd;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+
+    body {
+      background: var(--canvas);
+      color: var(--ink-700);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.55;
+      padding: 40px 24px 80px;
+    }
+
+    .container { max-width: 980px; margin: 0 auto; }
+
+    .page-head {
+      background: linear-gradient(135deg, var(--blue-800), var(--blue-900));
+      color: #fff;
+      padding: 36px 32px;
+      border-radius: 18px;
+      margin-bottom: 32px;
+    }
+    .page-head h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+    .page-head p { color: #dde3f6; font-size: 1rem; max-width: 640px; }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+      font-size: .85rem;
+    }
+    .legend div {
+      background: rgba(255,255,255,.08);
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: #fff;
+    }
+    .legend strong { display: block; color: #fff; font-weight: 700; }
+    .legend span { color: #dde3f6; }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 0;
+      margin-bottom: 32px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(11,17,48,.04);
+    }
+    .card-head {
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .card-head h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--ink-900);
+      margin-bottom: 4px;
+    }
+    .card-head p { color: var(--ink-500); font-size: .9rem; font-family: 'Inter', sans-serif; }
+    .card-head .meta {
+      font-family: 'Inter', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--red-600);
+      background: var(--red-100);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .meta-blue { color: var(--blue-800) !important; background: var(--blue-100) !important; }
+
+    .preview { padding: 36px 28px; }
+
+    /* Brand-bar that mimics the actual site header so they feel real */
+    .preview .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--blue-900);
+      color: #dde3f6;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: .8rem;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .preview .topbar .pill {
+      background: var(--red-600);
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      font-size: .7rem;
+    }
+
+    .preview .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--red-100);
+      color: var(--red-700);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: .8rem;
+      margin-bottom: 16px;
+    }
+    .preview h1 {
+      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+      color: var(--ink-900);
+      line-height: 1.12;
+      margin-bottom: 14px;
+      letter-spacing: -.01em;
+    }
+    .preview h1 .accent { color: var(--red-600); }
+    .preview .lede {
+      font-size: 1.05rem;
+      color: var(--ink-500);
+      margin-bottom: 18px;
+      max-width: 540px;
+      line-height: 1.55;
+    }
+    .preview .body-sample {
+      font-size: .95rem;
+      color: var(--ink-700);
+      line-height: 1.65;
+      margin-bottom: 18px;
+      max-width: 620px;
+    }
+    .preview .body-sample strong { color: var(--blue-800); }
+    .preview .ctas { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+    .preview .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: .95rem;
+      text-decoration: none;
+      border: 2px solid transparent;
+    }
+    .preview .btn-primary { background: var(--blue-800); color: #fff; }
+    .preview .btn-accent  { background: var(--red-600); color: #fff; }
+    .preview .btn-outline { color: var(--blue-800); border-color: var(--blue-800); background: transparent; }
+
+    .preview .nav-row {
+      display: flex; gap: 18px; flex-wrap: wrap;
+      padding-top: 14px; margin-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: .9rem;
+      color: var(--ink-700);
+      font-weight: 500;
+    }
+    .preview .nav-row a { color: var(--ink-700); text-decoration: none; }
+    .preview .nav-row .active { color: var(--blue-800); font-weight: 600; }
+
+    .preview .small {
+      font-size: .82rem; color: var(--ink-300); margin-top: 12px;
+    }
+
+    /* Font assignments per card */
+    .f-inter         { font-family: 'Inter', sans-serif; }
+    .f-inter         h1 { font-family: 'Inter', sans-serif; }
+
+    .f-dmsans        { font-family: 'DM Sans', sans-serif; }
+    .f-dmsans        h1 { font-family: 'DM Sans', sans-serif; }
+
+    .f-jakarta       { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .f-jakarta       h1 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .f-manrope       { font-family: 'Manrope', sans-serif; }
+    .f-manrope       h1 { font-family: 'Manrope', sans-serif; }
+
+    .f-nunito        { font-family: 'Nunito', sans-serif; }
+    .f-nunito        h1 { font-family: 'Nunito', sans-serif; }
+
+    .f-fraunces      { font-family: 'Inter', sans-serif; }
+    .f-fraunces      h1 { font-family: 'Fraunces', serif; font-weight: 700; letter-spacing: -.015em; }
+
+    .f-newsreader    { font-family: 'Inter', sans-serif; }
+    .f-newsreader    h1 { font-family: 'Newsreader', serif; font-weight: 700; }
+
+    .f-playfair      { font-family: 'Lato', sans-serif; }
+    .f-playfair      h1 { font-family: 'Playfair Display', serif; font-weight: 800; }
+
+    .verdict {
+      background: #fff;
+      border: 2px solid var(--blue-800);
+      border-radius: 18px;
+      padding: 28px;
+      margin-top: 32px;
+    }
+    .verdict h3 { font-family: 'Inter', sans-serif; color: var(--blue-800); font-size: 1.1rem; margin-bottom: 12px; }
+    .verdict p { font-family: 'Inter', sans-serif; font-size: .95rem; color: var(--ink-700); margin-bottom: 10px; }
+    .verdict strong { color: var(--red-600); }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="page-head">
+      <h1>Font preview · Guy Park Pharmacy</h1>
+      <p>Each card below renders the same hero content in a different font, using your real brand colors (cobalt blue + brand red). Scroll through, pick the one that feels right, and tell me which to apply across the site.</p>
+      <div class="legend">
+        <div><strong>Sans-serif options</strong><span>Inter, DM Sans, Plus Jakarta, Manrope, Nunito</span></div>
+        <div><strong>Serif + Sans pairings</strong><span>Fraunces, Newsreader, Playfair (headlines) + sans body</span></div>
+      </div>
+    </div>
+
+
+    <!-- 1. INTER (current) -->
+    <section class="card f-inter">
+      <div class="card-head">
+        <div>
+          <h2>1. Inter <span style="color:var(--ink-300); font-weight:500;">(current)</span></h2>
+          <p>Modern, neutral, healthcare-safe. Looks like every SaaS and clinical website, which can be a pro or a con.</p>
+        </div>
+        <span class="meta meta-blue">Sans · Single font</span>
+      </div>
+      <div class="preview">
+        <div class="topbar">
+          <span><i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY</span>
+          <span class="pill"><i class="fas fa-truck-fast"></i> Free Delivery</span>
+        </div>
+        <span class="badge"><i class="fas fa-heart"></i> Independent · Locally Owned</span>
+        <h1>Care that <span class="accent">exceeds</span> expectations.</h1>
+        <p class="lede">Free delivery, every insurance accepted, and a pharmacist who knows your name.</p>
+        <p class="body-sample">We make managing your medications simple, affordable, and human. <strong>Most refills in under 10 minutes.</strong> Our team speaks English, Spanish, and Italian, just let us know which language you'd prefer.</p>
+        <div class="ctas">
+          <a class="btn btn-accent" href="#"><i class="fas fa-prescription-bottle"></i> Request a Refill</a>
+          <a class="btn btn-outline" href="#">Transfer a Prescription</a>
+        </div>
+        <div class="nav-row">
+          <a href="#" class="active">Home</a><a href="#">Services</a><a href="#">About</a><a href="#">Resources</a><a href="#">Contact</a>
+        </div>
+        <p class="small">Body 14px · headline 800 · subhead 500</p>
+      </div>
+    </section>
+
+    <!-- 2. DM SANS -->
+    <section class="card f-dmsans">
+      <div class="card-head">
+        <div>
+          <h2>2. DM Sans</h2>
+          <p>Warmer humanist sans, a friendlier cousin of Inter. Feels less corporate, more "neighborhood" without losing professionalism.</p>
+        </div>
+        <span class="meta meta-blue">Sans · Single font</span>
+      </div>
+      <div class="preview">
+        <div class="topbar">
+          <span><i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY</span>
+          <span class="pill"><i class="fas fa-truck-fast"></i> Free Delivery</span>
+        </div>
+        <span class="badge"><i class="fas fa-heart"></i> Independent · Locally Owned</span>
+        <h1>Care that <span class="accent">exceeds</span> expectations.</h1>
+        <p class="lede">Free delivery, every insurance accepted, and a pharmacist who knows your name.</p>
+        <p class="body-sample">We make managing your medications simple, affordable, and human. <strong>Most refills in under 10 minutes.</strong> Our team speaks English, Spanish, and Italian, just let us know which language you'd prefer.</p>
+        <div class="ctas">
+          <a class="btn btn-accent" href="#"><i class="fas fa-prescription-bottle"></i> Request a Refill</a>
+          <a class="btn btn-outline" href="#">Transfer a Prescription</a>
+        </div>
+        <div class="nav-row">
+          <a href="#" class="active">Home</a><a href="#">Services</a><a href="#">About</a><a href="#">Resources</a><a href="#">Contact</a>
+        </div>
+        <p class="small">DM Sans is the friendlier sibling of Inter, open shapes, gentle curves.</p>
+      </div>
+    </section>
+
+    <!-- 3. PLUS JAKARTA SANS -->
+    <section class="card f-jakarta">
+      <div class="card-head">
+        <div>
+          <h2>3. Plus Jakarta Sans</h2>
+          <p>Modern geometric sans with a distinctive personality, more memorable than Inter, still clean and serious. Used by a lot of progressive healthcare brands.</p>
+        </div>
+        <span class="meta meta-blue">Sans · Single font</span>
+      </div>
+      <div class="preview">
+        <div class="topbar">
+          <span><i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY</span>
+          <span class="pill"><i class="fas fa-truck-fast"></i> Free Delivery</span>
+        </div>
+        <span class="badge"><i class="fas fa-heart"></i> Independent · Locally Owned</span>
+        <h1>Care that <span class="accent">exceeds</span> expectations.</h1>
+        <p class="lede">Free delivery, every insurance accepted, and a pharmacist who knows your name.</p>
+        <p class="body-sample">We make managing your medications simple, affordable, and human. <strong>Most refills in under 10 minutes.</strong> Our team speaks English, Spanish, and Italian, just let us know which language you'd prefer.</p>
+        <div class="ctas">
+          <a class="btn btn-accent" href="#"><i class="fas fa-prescription-bottle"></i> Request a Refill</a>
+          <a class="btn btn-outline" href="#">Transfer a Prescription</a>
+        </div>
+        <div class="nav-row">
+          <a href="#" class="active">Home</a><a href="#">Services</a><a href="#">About</a><a href="#">Resources</a><a href="#">Contact</a>
+        </div>
+        <p class="small">Geometric, confident, slightly more distinctive, works well next to bold brand colors.</p>
+      </div>
+    </section>
+
+    <!-- 4. MANROPE -->
+    <section class="card f-manrope">
+      <div class="card-head">
+        <div>
+          <h2>4. Manrope</h2>
+          <p>Modern with rounded curves, feels friendly without sliding into "cutesy." Easy to read at small sizes, strong at large weights for headlines.</p>
+        </div>
+        <span class="meta meta-blue">Sans · Single font</span>
+      </div>
+      <div class="preview">
+        <div class="topbar">
+          <span><i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY</span>
+          <span class="pill"><i class="fas fa-truck-fast"></i> Free Delivery</span>
+        </div>
+        <span class="badge"><i class="fas fa-heart"></i> Independent · Locally Owned</span>
+        <h1>Care that <span class="accent">exceeds</span> expectations.</h1>
+        <p class="lede">Free delivery, every insurance accepted, and a pharmacist who knows your name.</p>
+        <p class="body-sample">We make managing your medications simple, affordable, and human. <strong>Most refills in under 10 minutes.</strong> Our team speaks English, Spanish, and Italian, just let us know which language you'd prefer.</p>
+        <div class="ctas">
+          <a class="btn btn-accent" href="#"><i class="fas fa-prescription-bottle"></i> Request a Refill</a>
+          <a class="btn btn-outline" href="#">Transfer a Prescription</a>
+        </div>
+        <div class="nav-row">
+          <a href="#" class="active">Home</a><a href="#">Services</a><a href="#">About</a><a href="#">Resources</a><a href="#">Contact</a>
+        </div>
+        <p class="small">Slightly softer than Inter, leans into the community-pharmacy warmth.</p>
+      </div>
+    </section>
+
+    <!-- 5. NUNITO -->
+    <section class="card f-nunito">
+      <div class="card-head">
+        <div>
+          <h2>5. Nunito</h2>
+          <p>Soft, friendly, rounded. Strong "neighborhood" feel, like a sign hand-painted on a friendly shop window. Pushes more toward "family" and away from "clinical."</p>
+        </div>
+        <span class="meta meta-blue">Sans · Single font</span>
+      </div>
+      <div class="preview">
+        <div class="topbar">
+          <span><i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY</span>
+          <span class="pill"><i class="fas fa-truck-fast"></i> Free Delivery</span>
+        </div>
+        <span class="badge"><i class="fas fa-heart"></i> Independent · Locally Owned</span>
+        <h1>Care that <span class="accent">exceeds</span> expectations.</h1>
+        <p class="lede">Free delivery, every insurance accepted, and a pharmacist who knows your name.</p>
+        <p class="body-sample">We make managing your medications simple, affordable, and human. <strong>Most refills in under 10 minutes.</strong> Our team speaks English, Spanish, and Italian, just let us know which language you'd prefer.</p>
+        <div class="ctas">
+          <a class="btn btn-accent" href="#"><i class="fas fa-prescription-bottle"></i> Request a Refill</a>
+          <a class="btn btn-outline" href="#">Transfer a Prescription</a>
+        </div>
+        <div class="nav-row">
+          <a href="#" class="active">Home</a><a href="#">Services</a><a href="#">About</a><a href="#">Resources</a><a href="#">Contact</a>
+        </div>
+        <p class="small">Warmest option, softer corners, friendlier mood.</p>
+      </div>
+    </section>
+
+    <!-- 6. FRAUNCES + INTER -->
+    <section class="card f-fraunces">
+      <div class="card-head">
+        <div>
+          <h2>6. Fraunces (headlines) + Inter (body)</h2>
+          <p>A modern variable serif designed for screens. Editorial gravitas in headlines, clean Inter for body. Feels trustworthy and warm at the same time, strong "women-owned, locally-owned, generations of care" energy.</p>
+        </div>
+        <span class="meta">Serif + Sans pairing</span>
+      </div>
+      <div class="preview">
+        <div class="topbar">
+          <span><i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY</span>
+          <span class="pill"><i class="fas fa-truck-fast"></i> Free Delivery</span>
+        </div>
+        <span class="badge"><i class="fas fa-heart"></i> Independent · Locally Owned</span>
+        <h1>Care that <span class="accent">exceeds</span> expectations.</h1>
+        <p class="lede">Free delivery, every insurance accepted, and a pharmacist who knows your name.</p>
+        <p class="body-sample">We make managing your medications simple, affordable, and human. <strong>Most refills in under 10 minutes.</strong> Our team speaks English, Spanish, and Italian, just let us know which language you'd prefer.</p>
+        <div class="ctas">
+          <a class="btn btn-accent" href="#"><i class="fas fa-prescription-bottle"></i> Request a Refill</a>
+          <a class="btn btn-outline" href="#">Transfer a Prescription</a>
+        </div>
+        <div class="nav-row">
+          <a href="#" class="active">Home</a><a href="#">Services</a><a href="#">About</a><a href="#">Resources</a><a href="#">Contact</a>
+        </div>
+        <p class="small">Editorial pairing, headlines feel hand-crafted, body stays modern and legible.</p>
+      </div>
+    </section>
+
+    <!-- 7. NEWSREADER + INTER -->
+    <section class="card f-newsreader">
+      <div class="card-head">
+        <div>
+          <h2>7. Newsreader (headlines) + Inter (body)</h2>
+          <p>A friendly serif designed for reading on screens. Slightly less formal than Fraunces, warmer, almost like an old town newspaper masthead.</p>
+        </div>
+        <span class="meta">Serif + Sans pairing</span>
+      </div>
+      <div class="preview">
+        <div class="topbar">
+          <span><i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY</span>
+          <span class="pill"><i class="fas fa-truck-fast"></i> Free Delivery</span>
+        </div>
+        <span class="badge"><i class="fas fa-heart"></i> Independent · Locally Owned</span>
+        <h1>Care that <span class="accent">exceeds</span> expectations.</h1>
+        <p class="lede">Free delivery, every insurance accepted, and a pharmacist who knows your name.</p>
+        <p class="body-sample">We make managing your medications simple, affordable, and human. <strong>Most refills in under 10 minutes.</strong> Our team speaks English, Spanish, and Italian, just let us know which language you'd prefer.</p>
+        <div class="ctas">
+          <a class="btn btn-accent" href="#"><i class="fas fa-prescription-bottle"></i> Request a Refill</a>
+          <a class="btn btn-outline" href="#">Transfer a Prescription</a>
+        </div>
+        <div class="nav-row">
+          <a href="#" class="active">Home</a><a href="#">Services</a><a href="#">About</a><a href="#">Resources</a><a href="#">Contact</a>
+        </div>
+        <p class="small">Friendlier serif than Fraunces, same trust, less formal.</p>
+      </div>
+    </section>
+
+    <!-- 8. PLAYFAIR DISPLAY + LATO -->
+    <section class="card f-playfair">
+      <div class="card-head">
+        <div>
+          <h2>8. Playfair Display (headlines) + Lato (body)</h2>
+          <p>The most traditional / "elegant" of the pairings. High-contrast serif headlines feel a touch upmarket, works if you want to lean into "established, generational, dignified."</p>
+        </div>
+        <span class="meta">Serif + Sans pairing</span>
+      </div>
+      <div class="preview">
+        <div class="topbar">
+          <span><i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY</span>
+          <span class="pill"><i class="fas fa-truck-fast"></i> Free Delivery</span>
+        </div>
+        <span class="badge"><i class="fas fa-heart"></i> Independent · Locally Owned</span>
+        <h1>Care that <span class="accent">exceeds</span> expectations.</h1>
+        <p class="lede">Free delivery, every insurance accepted, and a pharmacist who knows your name.</p>
+        <p class="body-sample">We make managing your medications simple, affordable, and human. <strong>Most refills in under 10 minutes.</strong> Our team speaks English, Spanish, and Italian, just let us know which language you'd prefer.</p>
+        <div class="ctas">
+          <a class="btn btn-accent" href="#"><i class="fas fa-prescription-bottle"></i> Request a Refill</a>
+          <a class="btn btn-outline" href="#">Transfer a Prescription</a>
+        </div>
+        <div class="nav-row">
+          <a href="#" class="active">Home</a><a href="#">Services</a><a href="#">About</a><a href="#">Resources</a><a href="#">Contact</a>
+        </div>
+        <p class="small">Most traditional / upmarket of the options. Pairs with Lato for clean readable body.</p>
+      </div>
+    </section>
+
+
+    <div class="verdict">
+      <h3>My recommendation</h3>
+      <p>For a women-owned, independent community pharmacy with a bold red/blue logo, my pick is <strong>Option 6: Fraunces + Inter</strong>. Reasoning:</p>
+      <p>· Fraunces in the headlines adds warmth and trust, exactly the "people who know your name" feeling, without going traditional or stuffy.</p>
+      <p>· Inter for body stays modern and effortless to read, especially for older patients.</p>
+      <p>· The bold cobalt + red brand carries the modern energy; the serif adds the human warmth so the whole thing doesn't feel like a SaaS startup.</p>
+      <p>· If you'd rather stick to one font, <strong>Option 2 (DM Sans)</strong> is the strongest single-font pick, warmer than Inter, modern, and friendly.</p>
+      <p>Once you decide, tell me the number and I'll apply it across all 7 pages.</p>
+    </div>
+
+  </div>
+</body>
+</html>

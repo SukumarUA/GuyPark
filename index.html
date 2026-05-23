@@ -1,288 +1,540 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guy Park Pharmacy | Amsterdam, NY</title>
-    <meta name="description" content="Guy Park Pharmacy is a highly-rated, women-owned independent community pharmacy in Amsterdam, NY. We offer prescription fulfillment, delivery, and friendly service.">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guy Park Pharmacy | Independent Community Pharmacy in Amsterdam, NY</title>
+  <meta name="description" content="Guy Park Pharmacy is an independent community pharmacy in Amsterdam, NY offering free delivery, all-insurance acceptance, prescription transfers, vaccines, and personalized care from pharmacist Justin P. Lefco, RPh.">
+  <link rel="canonical" href="https://guyparkpharmacy.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Guy Park Pharmacy | Amsterdam, NY">
+  <meta property="og:description" content="Free delivery, all insurances accepted, and personalized care from your independent community pharmacy in Amsterdam, NY.">
+  <meta property="og:url" content="https://guyparkpharmacy.com/">
+  <meta property="og:image" content="https://guyparkpharmacy.com/assets/logo-full.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Guy Park Pharmacy LLC">
+  <meta name="theme-color" content="#1d3faf">
+  <meta name="format-detection" content="telephone=yes">
+
+  <!-- Geo targeting for local SEO -->
+  <meta name="geo.region" content="US-NY">
+  <meta name="geo.placename" content="Amsterdam, NY">
+  <meta name="geo.position" content="42.944422;-74.198145">
+  <meta name="ICBM" content="42.944422, -74.198145">
+
+  <!-- Open Graph / Twitter — site-wide values -->
+  <meta property="og:site_name" content="Guy Park Pharmacy">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:image" content="https://guyparkpharmacy.com/assets/logo-full.png">
+
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+
+  <!-- Fonts & icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- LocalBusiness / Pharmacy schema for local SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Pharmacy",
+    "name": "Guy Park Pharmacy",
+    "legalName": "Guy Park Pharmacy LLC",
+    "identifier": {
+      "@type": "PropertyValue",
+      "propertyID": "NPI",
+      "value": "1841824067"
+    },
+    "image": "https://guyparkpharmacy.com/assets/logo-full.png",
+    "url": "https://guyparkpharmacy.com/",
+    "telephone": "+1-518-212-6020",
+    "faxNumber": "+1-518-212-6062",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "151 Guy Park Ave",
+      "addressLocality": "Amsterdam",
+      "addressRegion": "NY",
+      "postalCode": "12010",
+      "addressCountry": "US"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 42.944422, "longitude": -74.198145 },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "09:00", "closes": "17:00"
+    }],
+    "priceRange": "$$",
+    "areaServed": "Amsterdam, NY and surrounding Mohawk Valley",
+    "employee": {
+      "@type": "Person",
+      "name": "Justin P. Lefco",
+      "jobTitle": "Pharmacist",
+      "identifier": "NPI 1124208848"
+    },
+    "knowsLanguage": ["English","Spanish","Italian"],
+    "slogan": "We don't just meet expectations, we exceed them.",
+    "sameAs": [
+      "https://www.facebook.com/GuyParkPharmacy/"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.4",
+      "reviewCount": "3",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Janet Pratt"},
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "reviewBody": "I have nothing but nice things to say about Guy Park Pharmacy. I need a special prescription, and Guy Park has been able to get it for me and ship it to me. They also have helped me secure a savings plan. The pharmacists I talk to on the phone are incredibly helpful, patient, and kind."
+      },
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Connie Lee"},
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "reviewBody": "Very nice pharmacist, knowledgeable and very helpful. People working there seem very happy. Nice change from larger pharmacies where the people are always in a hurry. Highly recommend."
+      },
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "KC Myers"},
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "reviewBody": "The pharmacist is great, very friendly and answers all my questions."
+      }
+    ]
+  }
+  </script>
+
+  <!-- WebSite identity -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Guy Park Pharmacy",
+    "url": "https://guyparkpharmacy.com/",
+    "inLanguage": "en-US",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Guy Park Pharmacy LLC",
+      "url": "https://guyparkpharmacy.com/",
+      "logo": "https://guyparkpharmacy.com/assets/logo-full.png",
+      "sameAs": ["https://www.facebook.com/GuyParkPharmacy/"]
+    }
+  }
+  </script>
+  <!-- Analytics (GA4) - configured in js/analytics.js -->
+  <script src="js/analytics.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
-            <div>
-                <i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY 12010
-            </div>
-            <div>
-                <a href="tel:+15182126020"><i class="fas fa-phone"></i> (518) 212-6020</a>
-                <a href="#hours"><i class="far fa-clock"></i> Mon-Fri: 9am - 5pm</a>
-            </div>
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="container">
+      <div><i class="fas fa-map-marker-alt"></i> 151 Guy Park Ave, Amsterdam, NY 12010</div>
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;">
+        <a href="tel:+15182126020"><i class="fas fa-phone"></i> (518) 212-6020</a>
+        <span style="color:#a8b3cc;"><i class="fas fa-print" aria-hidden="true"></i> (518) 212-6062</span>
+        <span class="delivery-pill"><i class="fas fa-truck-fast" aria-hidden="true"></i> Free Delivery</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="brand" aria-label="Guy Park Pharmacy, home">
+        <img src="assets/logo.png" alt="Guy Park Pharmacy, We don't just meet expectations, we exceed them.">
+      </a>
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="resources.html">Resources</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html#refill" class="btn btn--accent nav-cta">
+          <i class="fas fa-prescription-bottle" aria-hidden="true"></i>
+          <span>Request Refill</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div>
+          <span class="badge"><i class="fas fa-heart" aria-hidden="true"></i> Independent · Locally Owned · Amsterdam, NY</span>
+          <h1>Care that <span class="accent">exceeds</span> expectations, right in your neighborhood.</h1>
+          <p class="lede">Free delivery, every insurance accepted, and a pharmacist who knows your name. We make managing your medications simple, affordable, and human.</p>
+          <div class="hero-ctas">
+            <a href="contact.html#refill" class="btn btn--accent">
+              <i class="fas fa-prescription-bottle" aria-hidden="true"></i> Request Refill
+            </a>
+            <a href="resources.html" class="btn btn--outline">Transfer a Prescription</a>
+          </div>
+          <div class="hero-meta">
+            <span><i class="fas fa-truck-fast" aria-hidden="true"></i> Free delivery in Amsterdam &amp; nearby</span>
+            <span><i class="fas fa-shield-heart" aria-hidden="true"></i> All insurances accepted</span>
+            <span><i class="fas fa-language" aria-hidden="true"></i> English, Spanish &amp; Italian spoken</span>
+          </div>
         </div>
+        <div class="hero-card">
+          <div class="hero-art" role="img" aria-label="Guy Park Pharmacy, prescription ready, free delivery on the way, and praise from patients">
+            <svg class="hero-svg" viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#eef2fb"/>
+                  <stop offset="100%" stop-color="#fbf7f0"/>
+                </linearGradient>
+                <linearGradient id="blueG" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2a55c4"/>
+                  <stop offset="100%" stop-color="#1d3faf"/>
+                </linearGradient>
+                <linearGradient id="redG" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#e51e26"/>
+                  <stop offset="100%" stop-color="#b81720"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Canvas -->
+              <rect width="640" height="520" fill="url(#bg)"/>
+
+              <!-- Soft decorative shapes (very subtle) -->
+              <circle cx="560" cy="70" r="70" fill="#1d3faf" opacity=".07"/>
+              <circle cx="70"  cy="460" r="46" fill="#e51e26" opacity=".06"/>
+
+              <!-- ================== CARD C (back): Review snippet, tilted left ================== -->
+              <g transform="translate(30 60) rotate(-7)" filter="drop-shadow(0 14px 26px rgba(11,17,48,.12))">
+                <rect width="260" height="116" rx="16" fill="#ffffff"/>
+                <!-- Five stars -->
+                <g transform="translate(22 28)" fill="#f5b324">
+                  <path d="M 0,-9 L 2.6,-2.8 L 9.3,-2.8 L 3.8,1.2 L 5.8,8 L 0,4 L -5.8,8 L -3.8,1.2 L -9.3,-2.8 L -2.6,-2.8 Z"/>
+                  <g transform="translate(22 0)"><path d="M 0,-9 L 2.6,-2.8 L 9.3,-2.8 L 3.8,1.2 L 5.8,8 L 0,4 L -5.8,8 L -3.8,1.2 L -9.3,-2.8 L -2.6,-2.8 Z"/></g>
+                  <g transform="translate(44 0)"><path d="M 0,-9 L 2.6,-2.8 L 9.3,-2.8 L 3.8,1.2 L 5.8,8 L 0,4 L -5.8,8 L -3.8,1.2 L -9.3,-2.8 L -2.6,-2.8 Z"/></g>
+                  <g transform="translate(66 0)"><path d="M 0,-9 L 2.6,-2.8 L 9.3,-2.8 L 3.8,1.2 L 5.8,8 L 0,4 L -5.8,8 L -3.8,1.2 L -9.3,-2.8 L -2.6,-2.8 Z"/></g>
+                  <g transform="translate(88 0)"><path d="M 0,-9 L 2.6,-2.8 L 9.3,-2.8 L 3.8,1.2 L 5.8,8 L 0,4 L -5.8,8 L -3.8,1.2 L -9.3,-2.8 L -2.6,-2.8 Z"/></g>
+                </g>
+                <text x="22" y="64"  font-family="Newsreader, Georgia, serif" font-size="14" font-style="italic" fill="#1a2150">"Best pharmacy in Amsterdam!"</text>
+                <text x="22" y="94"  font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#4a5170">Janet P.</text>
+                <text x="64" y="94"  font-family="Inter, system-ui, sans-serif" font-size="11" fill="#8a91a8">· Local Guide</text>
+              </g>
+
+              <!-- ================== CARD B (back-right): Delivery in progress, tilted right ================== -->
+              <g transform="translate(370 78) rotate(7)" filter="drop-shadow(0 18px 32px rgba(11,17,48,.14))">
+                <rect width="230" height="140" rx="16" fill="#ffffff"/>
+                <!-- Red header strip -->
+                <rect width="230" height="40" rx="16" fill="url(#redG)"/>
+                <rect y="24" width="230" height="16" fill="url(#redG)"/>
+                <circle cx="20" cy="20" r="4" fill="#ffffff"/>
+                <text x="32" y="26" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#ffffff" letter-spacing="1.8">ON THE WAY</text>
+
+                <!-- Truck glyph -->
+                <g transform="translate(20 70)" fill="#1d3faf">
+                  <rect x="0" y="6" width="34" height="22" rx="3"/>
+                  <path d="M 34 12 L 50 12 L 56 18 L 56 28 L 34 28 Z"/>
+                  <circle cx="12" cy="32" r="5" fill="#1a2150"/>
+                  <circle cx="44" cy="32" r="5" fill="#1a2150"/>
+                  <circle cx="12" cy="32" r="2" fill="#ffffff"/>
+                  <circle cx="44" cy="32" r="2" fill="#ffffff"/>
+                </g>
+                <text x="92" y="80"  font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="800" fill="#1a2150">Free Delivery</text>
+                <text x="92" y="100" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#4a5170">Arriving in 12 min</text>
+
+                <!-- Progress bar -->
+                <rect x="20" y="116" width="190" height="6" rx="3" fill="#e6e9f2"/>
+                <rect x="20" y="116" width="130" height="6" rx="3" fill="url(#redG)"/>
+              </g>
+
+              <!-- ================== CARD A (front, main): Prescription ready ================== -->
+              <g transform="translate(110 195)" filter="drop-shadow(0 26px 48px rgba(11,17,48,.20))">
+                <rect width="400" height="260" rx="22" fill="#ffffff"/>
+
+                <!-- Blue header bar -->
+                <rect width="400" height="64" rx="22" fill="url(#blueG)"/>
+                <rect y="42" width="400" height="22" fill="url(#blueG)"/>
+                <text x="26" y="40" font-family="Newsreader, Georgia, serif" font-size="22" font-weight="700" fill="#ffffff">℞ Prescription Ready</text>
+                <circle cx="370" cy="32" r="6" fill="#ffffff" opacity=".4"/>
+                <circle cx="354" cy="32" r="6" fill="#ffffff" opacity=".25"/>
+
+                <!-- Patient detail lines -->
+                <rect x="26" y="92"  width="200" height="10" rx="5" fill="#e6e9f2"/>
+                <rect x="26" y="112" width="260" height="10" rx="5" fill="#e6e9f2"/>
+
+                <!-- Chips row -->
+                <g transform="translate(26 144)">
+                  <rect width="156" height="34" rx="17" fill="#fde8e9"/>
+                  <circle cx="20" cy="17" r="6" fill="#e51e26"/>
+                  <text x="34" y="22" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#b81720" letter-spacing="0.6">READY IN 10 MIN</text>
+                </g>
+                <g transform="translate(192 144)">
+                  <rect width="176" height="34" rx="17" fill="#e8ecfa"/>
+                  <text x="20" y="22" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#1d3faf" letter-spacing="0.6">ALL INSURANCES</text>
+                </g>
+
+                <!-- Pharmacist verified row -->
+                <g transform="translate(26 200)">
+                  <circle cx="10" cy="10" r="10" fill="#2dbe6c" opacity=".18"/>
+                  <circle cx="10" cy="10" r="5" fill="#1f9e55"/>
+                  <text x="30" y="15" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#1a2150">Pharmacist verified</text>
+                  <text x="30" y="32" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#4a5170">Justin Lefco, RPh</text>
+                </g>
+
+                <!-- Big red checkmark seal -->
+                <g transform="translate(340 215)">
+                  <circle r="34" fill="url(#redG)"/>
+                  <path d="M -14 1 L -3 12 L 14 -9" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </g>
+              </g>
+            </svg>
+
+            <!-- Floating modern badge (the chosen ribbon style) -->
+            <div class="hero-badge">
+              <div class="hero-badge-ico"><i class="fas fa-truck-fast" aria-hidden="true"></i></div>
+              <div>
+                <strong>Free Delivery</strong>
+                <small>No minimum · Amsterdam &amp; nearby</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats band -->
+    <div class="trust-strip">
+      <div class="container">
+        <div class="stat">
+          <div class="num">10<span class="unit">min</span></div>
+          <div class="label">Average refill time</div>
+        </div>
+        <div class="stat">
+          <div class="num">$0</div>
+          <div class="label">Local delivery, every order</div>
+        </div>
+        <div class="stat">
+          <div class="num">All<span class="unit">plans</span></div>
+          <div class="label">Major insurances accepted</div>
+        </div>
+        <div class="stat">
+          <div class="num">3<span class="unit">langs</span></div>
+          <div class="label">English · Spanish · Italian</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container main-nav">
-            <a href="#" class="logo">
-                <img src="assets/logo.png" alt="Guy Park Pharmacy Logo">
-                Guy Park Pharmacy
+    <!-- Services preview -->
+    <section id="services">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">What we do</span>
+          <h2>Care designed around your life</h2>
+          <p>From refills to vaccines to insurance hassles, we handle the details so you can focus on feeling better.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="service-card">
+            <div class="service-icon"><i class="fas fa-prescription-bottle-medical" aria-hidden="true"></i></div>
+            <h3>Refills &amp; Transfers</h3>
+            <p>Refilling or moving from another pharmacy is quick and painless. We handle the paperwork end to end.</p>
+            <a href="services.html#refills">Learn more <i class="fas fa-arrow-right-long" aria-hidden="true"></i></a>
+          </article>
+
+          <article class="service-card service-card--accent">
+            <div class="service-icon"><i class="fas fa-truck-fast" aria-hidden="true"></i></div>
+            <h3>Free Delivery</h3>
+            <p>Can't make it in? We bring your prescriptions to your door at no cost, every day, no minimum.</p>
+            <a href="services.html#delivery">Learn more <i class="fas fa-arrow-right-long" aria-hidden="true"></i></a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon"><i class="fas fa-syringe" aria-hidden="true"></i></div>
+            <h3>Vaccines</h3>
+            <p>Flu, COVID-19 boosters, shingles, pneumonia and more, walk in or schedule by phone.</p>
+            <a href="services.html#vaccines">Learn more <i class="fas fa-arrow-right-long" aria-hidden="true"></i></a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon"><i class="fas fa-pills" aria-hidden="true"></i></div>
+            <h3>Med Sync &amp; Blister Packs</h3>
+            <p>One pickup, every medication. Ideal for seniors and complex regimens, fewer trips, fewer mistakes.</p>
+            <a href="services.html#adherence">Learn more <i class="fas fa-arrow-right-long" aria-hidden="true"></i></a>
+          </article>
+
+          <article class="service-card service-card--accent">
+            <div class="service-icon"><i class="fas fa-file-medical" aria-hidden="true"></i></div>
+            <h3>Prior Authorizations</h3>
+            <p>We chase down insurance approvals and talk to your doctor's office, you don't lift a finger.</p>
+            <a href="services.html#prior-auth">Learn more <i class="fas fa-arrow-right-long" aria-hidden="true"></i></a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon"><i class="fas fa-hand-holding-dollar" aria-hidden="true"></i></div>
+            <h3>Co-Pay Assistance</h3>
+            <p>If your meds are expensive, we hunt for coupons, foundation grants and manufacturer programs to bring the cost down.</p>
+            <a href="services.html#copay">Learn more <i class="fas fa-arrow-right-long" aria-hidden="true"></i></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vaccines -->
+    <section class="section--canvas">
+      <div class="container">
+        <div class="vaccines">
+          <div class="container">
+            <div>
+              <span class="eyebrow" style="color:#ffd0d3;">Walk-ins welcome</span>
+              <h2>Vaccines &amp; immunizations</h2>
+              <p>Stay protected with same-day vaccines administered by our pharmacist.</p>
+              <ul>
+                <li><i class="fas fa-check" aria-hidden="true"></i> Flu (seasonal)</li>
+                <li><i class="fas fa-check" aria-hidden="true"></i> COVID-19 boosters</li>
+                <li><i class="fas fa-check" aria-hidden="true"></i> Shingles</li>
+                <li><i class="fas fa-check" aria-hidden="true"></i> Pneumonia</li>
+                <li><i class="fas fa-check" aria-hidden="true"></i> Tdap &amp; tetanus</li>
+                <li><i class="fas fa-check" aria-hidden="true"></i> Travel vaccines on request</li>
+              </ul>
+            </div>
+            <div style="text-align:center;">
+              <a href="tel:+15182126020" class="btn btn--accent">
+                <i class="fas fa-phone" aria-hidden="true"></i> Call (518) 212-6020
+              </a>
+              <p style="margin-top:14px;color:#dde3f6;font-size:.9rem;">Or stop by, most vaccines available without an appointment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">From our patients</span>
+          <h2>What the community is saying</h2>
+          <div class="rating-summary">
+            <div class="stars" role="img" aria-label="4.4 out of 5 stars">
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star-half-stroke" aria-hidden="true"></i>
+            </div>
+            <span>4.4 out of 5 on Google</span>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="review-card">
+            <div class="stars" role="img" aria-label="5 out of 5 stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="review-text">"I have nothing but nice things to say about Guy Park Pharmacy, and I've never even set foot in the building! I need a special prescription, and Guy Park has been able to get it for me and ship it to me. They also have helped me secure a savings plan! The pharmacists I talk to on the phone are incredibly helpful, patient, and kind. I highly recommend working with them!"</p>
+            <p class="review-author">Janet Pratt <span style="color:var(--ink-300);font-weight:400;font-size:.82rem;">· Local Guide · via Google</span></p>
+          </article>
+          <article class="review-card">
+            <div class="stars" role="img" aria-label="5 out of 5 stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="review-text">"AWESOME AWESOME AWESOME. Very nice pharmacist, knowledgeable and very helpful. People working there seem very happy. Nice change from larger pharmacies where the people are always in a hurry. Highly recommend."</p>
+            <p class="review-author">Connie Lee <span style="color:var(--ink-300);font-weight:400;font-size:.82rem;">· via Google</span></p>
+          </article>
+          <article class="review-card">
+            <div class="stars" role="img" aria-label="5 out of 5 stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="review-text">"The pharmacist is great, very friendly and answers all my questions!"</p>
+            <p class="review-author">KC Myers <span style="color:var(--ink-300);font-weight:400;font-size:.82rem;">· via Google</span></p>
+          </article>
+        </div>
+
+        <p style="text-align:center;margin-top:32px;">
+          <a href="https://www.google.com/maps/place/Guy+Park+Pharmacy" target="_blank" rel="noopener noreferrer" class="btn btn--outline">
+            <i class="fab fa-google" aria-hidden="true"></i> Read more on Google
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA banner -->
+    <section class="section--tight">
+      <div class="container">
+        <div class="cta-banner">
+          <h2>Ready to switch to a pharmacy that knows you?</h2>
+          <p>Transferring takes less than 5 minutes. We'll contact your old pharmacy and your prescriber, you don't have to do a thing.</p>
+          <div class="ctas">
+            <a href="resources.html" class="btn btn--accent">Start a Transfer</a>
+            <a href="tel:+15182126020" class="btn btn--ghost"><i class="fas fa-phone" aria-hidden="true"></i> (518) 212-6020</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="brand-block">
+          <img src="assets/logo.png" alt="Guy Park Pharmacy logo">
+          <p>Your trusted, locally-owned community pharmacy in Amsterdam, NY. We don't just meet expectations, we exceed them.</p>
+          <p style="margin-top:14px;">
+            <a href="https://www.facebook.com/GuyParkPharmacy/" target="_blank" rel="noopener noreferrer" aria-label="Follow Guy Park Pharmacy on Facebook">
+              <i class="fab fa-facebook" aria-hidden="true"></i> Follow us on Facebook
             </a>
-            
-            <button class="mobile-menu-btn" aria-label="Toggle Menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <ul class="nav-links">
-                <li><a href="#services">Services</a></li>
-                <li><a href="#hours">Hours & Location</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#contact" class="btn btn-primary" style="color: white;">Refill Prescription</a></li>
-            </ul>
+          </p>
         </div>
-    </header>
-
-    <main>
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <img src="assets/hero.png" alt="Pharmacy Interior" class="hero-bg" style="opacity: 0.05;">
-            <div class="container">
-                <div class="hero-content">
-                    <div class="badge">
-                        <i class="fas fa-award"></i> Women-Owned Independent Pharmacy
-                    </div>
-                    <h1>Your Community Pharmacy in Amsterdam, NY</h1>
-                    <p>Experience personalized care, convenient delivery, and friendly service from a team that puts your health first.</p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="btn btn-primary">Refill Prescription</a>
-                        <a href="#hours" class="btn btn-outline">View Hours</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="assets/hero.png" alt="Clean and bright community pharmacy interior">
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="services">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Our Services</h2>
-                    <p>Comprehensive pharmaceutical care tailored to your family's needs.</p>
-                </div>
-                
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-prescription-bottle-alt"></i>
-                        </div>
-                        <h3>Prescription Fills</h3>
-                        <p>Fast, accurate prescription filling and convenient refills to keep you on track with your medications.</p>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-truck"></i>
-                        </div>
-                        <h3>Home Delivery</h3>
-                        <p>Can't make it to the store? We offer reliable delivery right to your door for your convenience.</p>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-store"></i>
-                        </div>
-                        <h3>In-Store Shopping</h3>
-                        <p>Browse our selection of health products, wellness items, and daily pharmacy essentials.</p>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-pills"></i>
-                        </div>
-                        <h3>OTC Products</h3>
-                        <p>A wide variety of over-the-counter medications, vitamins, and supplements to support your health.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Hours & Location Section -->
-        <section id="hours" class="info-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Hours & Location</h2>
-                    <p>Conveniently located in Amsterdam, NY to serve our community.</p>
-                </div>
-                
-                <div class="info-grid">
-                    <div class="hours-card">
-                        <h3><i class="far fa-clock" style="color: var(--primary-blue); margin-right: 10px;"></i> Business Hours</h3>
-                        <ul class="hours-list">
-                            <li><span>Monday</span> <span>9:00 AM - 5:00 PM</span></li>
-                            <li><span>Tuesday</span> <span>9:00 AM - 5:00 PM</span></li>
-                            <li><span>Wednesday</span> <span>9:00 AM - 5:00 PM</span></li>
-                            <li><span>Thursday</span> <span>9:00 AM - 5:00 PM</span></li>
-                            <li><span>Friday</span> <span>9:00 AM - 5:00 PM</span></li>
-                            <li class="closed"><span>Saturday</span> <span>Closed</span></li>
-                            <li class="closed"><span>Sunday</span> <span>Closed</span></li>
-                        </ul>
-                        <div style="margin-top: 30px;">
-                            <a href="https://www.google.com/maps/place/Guy+Park+Pharmacy/@42.9444262,-74.200725,17z/data=!4m15!1m8!3m7!1s0x89de61a58479da85:0x96a88b365ef6ac1d!2sGuy+Park+Pharmacy!8m2!3d42.9444223!4d-74.1981447!10e1!16s%2Fg%2F11jdb7kjbs!3m5!1s0x89de61a58479da85:0x96a88b365ef6ac1d!8m2!3d42.9444223!4d-74.1981447!16s%2Fg%2F11jdb7kjbs?entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="width: 100%; text-align: center;">Get Directions</a>
-                        </div>
-                    </div>
-                    
-                    <div class="map-container">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2915.2014167520037!2d-74.20071962340387!3d42.944426171144884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89de61a58479da85%3A0x96a88b365ef6ac1d!2sGuy%20Park%20Pharmacy!5e0!3m2!1sen!2sus!4v1714506540000!5m2!1sen!2sus" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"
-                            title="Guy Park Pharmacy Location">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Reviews Section -->
-        <section id="reviews">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">What Our Patients Say</h2>
-                    <div class="rating-summary">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span>4.4 out of 5 stars on Google</span>
-                    </div>
-                </div>
-                
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="review-text">"The staff here is incredibly friendly and helpful. They always take the time to answer my questions and make sure I understand my medications. Best pharmacy in Amsterdam!"</p>
-                        <p class="review-author">- Sarah M.</p>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="review-text">"I switched to Guy Park Pharmacy a few months ago and I couldn't be happier. The delivery service is a lifesaver when I'm too busy to stop by. Highly recommend supporting this local business."</p>
-                        <p class="review-author">- James T.</p>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="review-text">"Quick service and a really clean, welcoming environment. It feels good to support a women-owned business that genuinely cares about the community's health."</p>
-                        <p class="review-author">- Emily R.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section">
-            <div class="container">
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h2 class="section-title" style="text-align: left;">Get in Touch</h2>
-                        <p style="margin-bottom: 40px; font-size: 1.1rem;">Whether you need to refill a prescription, ask a question about your medication, or just want to say hello, we're here for you.</p>
-                        
-                        <div class="contact-item">
-                            <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div>
-                                <h4>Address</h4>
-                                <p>151 Guy Park Ave<br>Amsterdam, NY 12010</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-item-icon"><i class="fas fa-phone-alt"></i></div>
-                            <div>
-                                <h4>Phone</h4>
-                                <a href="tel:+15182126020">(518) 212-6020</a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-item-icon"><i class="far fa-clock"></i></div>
-                            <div>
-                                <h4>Hours</h4>
-                                <p>Monday - Friday: 9 AM - 5 PM<br>Weekends: Closed</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-form">
-                        <h3>Prescription Refill / Contact Form</h3>
-                        <form id="contactForm" name="contact" netlify data-netlify="true">
-                            <input type="hidden" name="form-name" value="contact" />
-                            <div class="form-group">
-                                <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" class="form-control" required placeholder="John Doe">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-control" required placeholder="(518) 555-0123">
-                            </div>
-                            <div class="form-group">
-                                <label for="inquiryType">Inquiry Type</label>
-                                <select id="inquiryType" name="inquiryType" class="form-control" required>
-                                    <option value="" disabled selected>Select an option</option>
-                                    <option value="refill">Prescription Refill</option>
-                                    <option value="delivery">Delivery Request</option>
-                                    <option value="general">General Question</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message / Prescription details</label>
-                                <textarea id="message" name="message" class="form-control" required placeholder="Please provide your RX number or any questions you have..."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Request</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">Guy Park Pharmacy</div>
-                <p>Your trusted community pharmacy in Amsterdam, NY.</p>
-            </div>
-            <div class="copyright">
-                &copy; <script>document.write(new Date().getFullYear())</script> Guy Park Pharmacy. All rights reserved.
-            </div>
+        <div>
+          <h4>Site</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="resources.html">Resources &amp; Forms</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
         </div>
-    </footer>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li>151 Guy Park Ave<br>Amsterdam, NY 12010</li>
+            <li><a href="tel:+15182126020"><i class="fas fa-phone" aria-hidden="true"></i> (518) 212-6020</a></li>
+            <li><i class="fas fa-print" aria-hidden="true"></i> Fax: (518) 212-6062</li>
+            <li>Mon–Fri: 9 AM – 5 PM</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="privacy-practices.html">Notice of Privacy Practices</a></li>
+            <li><a href="#main">Accessibility</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bar">
+        <div>&copy; <script>document.write(new Date().getFullYear())</script> Guy Park Pharmacy LLC. All rights reserved.</div>
+        <div>NPI: 1841824067 · LBN: Guy Park Pharmacy LLC</div>
+      </div>
+    </div>
+  </footer>
 
-    <!-- Custom JS -->
-    <script src="js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

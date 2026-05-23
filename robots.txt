@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Internal preview pages — not for indexing
+Disallow: /font-preview.html
+Disallow: /ribbon-preview.html
+
+# Sitemap
+Sitemap: https://guyparkpharmacy.com/sitemap.xml

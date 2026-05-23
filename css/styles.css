@@ -232,6 +232,7 @@ section { padding: 96px 0; }
   color: #cdd5ee;
   font-size: .85rem;
   padding: 9px 0;
+  padding-top: calc(9px + env(safe-area-inset-top, 0px));
 }
 .topbar .container {
   display: flex;
@@ -514,9 +515,9 @@ section { padding: 96px 0; }
   text-transform: uppercase;
 }
 @media (max-width: 720px) {
-  .trust-strip .container { grid-template-columns: 1fr 1fr; gap: 28px 0; }
+  .trust-strip .container { grid-template-columns: 1fr; gap: 24px 0; }
   .trust-strip .stat { border-left: none; border-top: 1px solid var(--line); padding-top: 18px; }
-  .trust-strip .stat:nth-child(-n+2) { border-top: none; padding-top: 0; }
+  .trust-strip .stat:first-child { border-top: none; padding-top: 0; }
 }
 
 /* Service grid */
@@ -1381,6 +1382,7 @@ textarea.form-control { resize: vertical; min-height: 120px; }
   .topbar {
     display: block;
     padding: 8px 0;
+    padding-top: calc(8px + env(safe-area-inset-top, 0px));
     font-size: 0.78rem;
     line-height: 1.45;
   }
